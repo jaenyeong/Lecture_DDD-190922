@@ -1,10 +1,14 @@
-package io.github.wotjd243.dddpokemon.pokemon.domain;
+package io.github.wotjd243.dddpokemon.game.domain.Pokemon;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class NationalPokedexNumber {
     private static final int MINIMUM_NUMBER = 1;
     private static final int MAXIMUM_NUMBER = 151;
+
+    private static final Map<Integer, NationalPokedexNumber> cached = new HashMap<>();
 
     private final int number;
 
@@ -14,10 +18,11 @@ public class NationalPokedexNumber {
     }
 
     public static NationalPokedexNumber valueOf(final int number) {
-        return new NationalPokedexNumber(number);
+        cached.putIfAbsent(number, new NationalPokedexNumber(number));
+        return cached.get(number);
     }
 
-    int toInt() {
+    public int toInt() {
         return number;
     }
 

@@ -8,6 +8,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.List;
 
 public class WebMvcConfiguration implements WebMvcConfigurer {
+    private final LoginUserArgumentResolver loginUserArgumentResolver;
+
+    public WebMvcConfiguration(final LoginUserArgumentResolver loginUserArgumentResolver) {
+        this.loginUserArgumentResolver = loginUserArgumentResolver;
+    }
+
     @Bean
     public LoginUserArgumentResolver loginUserArgumentResolver() {
         return new LoginUserArgumentResolver();
@@ -15,6 +21,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addArgumentResolvers(final List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(loginUserArgumentResolver());
+        resolvers.add(loginUserArgumentResolver);
     }
 }
